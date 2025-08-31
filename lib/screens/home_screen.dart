@@ -76,11 +76,18 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: primaryColor),
-              child: Text(
-                "Menu",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+            DrawerHeader(
+              decoration: const BoxDecoration(color: primaryColor),
+              child: Center(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Image.asset(
+                    'assets/images/logotipo.jpg',
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
             ListTile(
@@ -192,16 +199,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Row(
-                  children: const [
-                    Icon(Icons.storefront, size: 28, color: primaryColor),
-                    SizedBox(width: 12),
-                    Expanded(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.asset(
+                        'assets/images/logotipo.jpg',
+                        width: 28,
+                        height: 28,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    const Expanded(
                       child: Text(
                         'Seller — manage your products',
                         style: TextStyle(fontSize: 16),
                       ),
                     ),
-                    Icon(Icons.arrow_forward_ios, size: 16),
+                    const Icon(Icons.arrow_forward_ios, size: 16),
                   ],
                 ),
               ),

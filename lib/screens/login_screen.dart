@@ -89,11 +89,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     shape: BoxShape.circle,
                     color: Colors.white.withOpacity(0.2),
                   ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.storefront,
-                      size: 60,
-                      color: Colors.white,
+                  child: Center(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.asset(
+                        'assets/images/logotipo.jpg',
+                        fit: BoxFit.cover,
+                        width: 100,
+                        height: 100,
+                      ),
                     ),
                   ),
                 ),
