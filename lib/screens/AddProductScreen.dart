@@ -36,11 +36,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
             children: [
               ListTile(
                 leading: const Icon(Icons.camera_alt),
-                title: const Text("Tomar foto"),
+                title: const Text("Take Photo"),
                 onTap: () async {
                   Navigator.pop(context);
-                  final pickedFile =
-                      await _picker.pickImage(source: ImageSource.camera);
+                  final pickedFile = await _picker.pickImage(
+                    source: ImageSource.camera,
+                  );
                   if (pickedFile != null) {
                     setState(() {
                       _images.add(File(pickedFile.path));
@@ -50,11 +51,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
               ListTile(
                 leading: const Icon(Icons.photo_library),
-                title: const Text("Elegir de galería"),
+                title: const Text("Choose from Gallery"),
                 onTap: () async {
                   Navigator.pop(context);
-                  final pickedFile =
-                      await _picker.pickImage(source: ImageSource.gallery);
+                  final pickedFile = await _picker.pickImage(
+                    source: ImageSource.gallery,
+                  );
                   if (pickedFile != null) {
                     setState(() {
                       _images.add(File(pickedFile.path));
@@ -76,18 +78,18 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   void _saveDraft() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Borrador guardado (UI simulado)")),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text("Draft saved (UI simulated)")));
   }
 
   void _submitProduct() {
     if (_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Producto enviado (UI simulado)")),
+        const SnackBar(content: Text("Product submitted (UI simulated)")),
       );
 
-      // limpiar formulario
+      // Clear form
       _titleController.clear();
       _descriptionController.clear();
       _priceController.clear();
@@ -109,7 +111,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Registrar Producto"),
+        title: const Text("Register Product"),
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
       ),
@@ -119,9 +121,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
           key: _formKey,
           child: Column(
             children: [
-              // 📸 Imágenes
+              // 📸 Images
               _buildCard(
-                title: "Imágenes",
+                title: "Images",
                 icon: Icons.image,
                 children: [
                   GestureDetector(
@@ -133,8 +135,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Center(
-                        child: Icon(Icons.add_a_photo,
-                            size: 40, color: Colors.grey),
+                        child: Icon(
+                          Icons.add_a_photo,
+                          size: 40,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
                   ),
@@ -165,8 +170,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                     shape: BoxShape.circle,
                                     color: Colors.red,
                                   ),
-                                  child: const Icon(Icons.close,
-                                      size: 18, color: Colors.white),
+                                  child: const Icon(
+                                    Icons.close,
+                                    size: 18,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
@@ -179,78 +187,85 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
               const SizedBox(height: 16),
 
-              // 📝 Información básica
+              // 📝 Basic Information
               _buildCard(
-                title: "Información básica",
+                title: "Basic Information",
                 icon: Icons.info_outline,
                 children: [
                   TextFormField(
                     controller: _titleController,
                     decoration: const InputDecoration(
-                        labelText: "Nombre del producto *"),
-                    validator: (v) => v!.isEmpty ? "Ingresa un nombre" : null,
+                      labelText: "Product Name *",
+                    ),
+                    validator: (v) => v!.isEmpty ? "Enter a name" : null,
                   ),
                   TextFormField(
                     controller: _descriptionController,
                     maxLines: 3,
-                    decoration:
-                        const InputDecoration(labelText: "Descripción *"),
-                    validator: (v) =>
-                        v!.isEmpty ? "Ingresa una descripción" : null,
+                    decoration: const InputDecoration(
+                      labelText: "Description *",
+                    ),
+                    validator: (v) => v!.isEmpty ? "Enter a description" : null,
                   ),
                   DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(labelText: "Categoría *"),
+                    decoration: const InputDecoration(labelText: "Category *"),
                     value: _category,
                     items: const [
                       DropdownMenuItem(
-                          value: "tecnologia", child: Text("Tecnología")),
-                      DropdownMenuItem(value: "moda", child: Text("Moda")),
+                        value: "technology",
+                        child: Text("Technology"),
+                      ),
                       DropdownMenuItem(
-                          value: "deportes", child: Text("Deportes")),
-                      DropdownMenuItem(value: "hogar", child: Text("Hogar")),
+                        value: "fashion",
+                        child: Text("Fashion"),
+                      ),
+                      DropdownMenuItem(value: "sports", child: Text("Sports")),
+                      DropdownMenuItem(value: "home", child: Text("Home")),
                     ],
                     onChanged: (value) => setState(() => _category = value),
-                    validator: (v) =>
-                        v == null ? "Selecciona una categoría" : null,
+                    validator: (v) => v == null ? "Select a category" : null,
                   ),
                   TextFormField(
                     controller: _stockController,
-                    decoration:
-                        const InputDecoration(labelText: "Cantidad en stock"),
+                    decoration: const InputDecoration(
+                      labelText: "Stock Quantity",
+                    ),
                     keyboardType: TextInputType.number,
                   ),
                   TextFormField(
                     controller: _skuController,
-                    decoration:
-                        const InputDecoration(labelText: "SKU / Código único"),
+                    decoration: const InputDecoration(
+                      labelText: "SKU / Unique Code",
+                    ),
                   ),
                   TextFormField(
                     controller: _tagsController,
                     decoration: const InputDecoration(
-                        labelText: "Etiquetas (ej. gamer, portátil)"),
+                      labelText: "Tags (e.g., gamer, laptop)",
+                    ),
                   ),
                 ],
               ),
 
               const SizedBox(height: 16),
 
-              // 💰 Precio
+              // 💰 Price
               _buildCard(
-                title: "Precio",
+                title: "Price",
                 icon: Icons.attach_money,
                 children: [
                   TextFormField(
                     controller: _priceController,
                     decoration: InputDecoration(
-                      labelText: "Precio *",
+                      labelText: "Price *",
                       prefixText: _currency == "USD" ? "\$ " : "",
                     ),
                     keyboardType: TextInputType.number,
-                    validator: (v) => v!.isEmpty ? "Ingresa un precio" : null,
+                    validator: (v) => v!.isEmpty ? "Enter a price" : null,
                   ),
                   DropdownButtonFormField<String>(
                     value: _currency,
-                    decoration: const InputDecoration(labelText: "Moneda"),
+                    decoration: const InputDecoration(labelText: "Currency"),
                     items: const [
                       DropdownMenuItem(value: "USD", child: Text("USD (\$)")),
                       DropdownMenuItem(value: "EUR", child: Text("EUR (€)")),
@@ -262,17 +277,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ],
               ),
 
-              const SizedBox(height: 16),
-
               const SizedBox(height: 24),
 
-              // Botones de acción
+              // Action buttons
               Row(
                 children: [
                   Expanded(
                     child: OutlinedButton(
                       onPressed: _saveDraft,
-                      child: const Text("Guardar borrador"),
+                      child: const Text("Save Draft"),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -284,7 +297,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      child: const Text("Enviar producto"),
+                      child: const Text("Submit Product"),
                     ),
                   ),
                 ],
@@ -309,13 +322,19 @@ class _AddProductScreenState extends State<AddProductScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(children: [
-              Icon(icon, color: primaryColor),
-              const SizedBox(width: 8),
-              Text(title,
+            Row(
+              children: [
+                Icon(icon, color: primaryColor),
+                const SizedBox(width: 8),
+                Text(
+                  title,
                   style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold)),
-            ]),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 12),
             ...children,
           ],

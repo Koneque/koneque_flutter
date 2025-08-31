@@ -1,46 +1,46 @@
 import 'package:flutter/material.dart';
-import '../theme/colors.dart'; // Importa tu paleta de colores
+import '../theme/colors.dart'; // Your color palette
 import '../models/product_model.dart';
 import 'product_detail_screen.dart';
-import 'vendedor_disputa.dart'; // Para abrir la disputa
+import 'vendedor_disputa.dart'; // To open dispute
 
 class MisComprasScreen extends StatelessWidget {
   MisComprasScreen({super.key});
 
-  // Productos comprados simulados
+  // Simulated purchased products
   final List<ProductModel> purchasedProducts = [
     ProductModel(
       id: '1',
-      title: 'Laptop Gamer x',
+      title: 'Gaming Laptop X',
       description: 'Intel i7, 16GB RAM, RTX 3060',
       price: 1200,
       imageUrl: 'assets/images/laptop.jpg',
     ),
     ProductModel(
       id: '2',
-      title: 'Bicicleta MTB',
-      description: 'Ruedas 29", frenos a disco',
+      title: 'MTB Bicycle',
+      description: '29" Wheels, Disc Brakes',
       price: 450,
       imageUrl: 'assets/images/bicicleta.jpg',
     ),
     ProductModel(
       id: '3',
-      title: 'Auriculares Bluetooth',
-      description: 'Noise Cancelling, 30h batería',
+      title: 'Bluetooth Headphones',
+      description: 'Noise Cancelling, 30h Battery',
       price: 80,
       imageUrl: 'assets/images/auriculares.jpg',
     ),
     ProductModel(
       id: '4',
       title: 'Smartwatch Series 5',
-      description: 'Monitor de salud, notificaciones inteligentes',
+      description: 'Health monitor, smart notifications',
       price: 200,
       imageUrl: 'assets/images/reloj.jpg',
     ),
     ProductModel(
       id: '5',
       title: 'Tablet 10”',
-      description: 'Android, 64GB, pantalla full HD',
+      description: 'Android, 64GB, full HD screen',
       price: 350,
       imageUrl: 'assets/images/tablet.jpg',
     ),
@@ -50,7 +50,7 @@ class MisComprasScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Mis Compras"),
+        title: const Text("My Purchases"),
         backgroundColor: primaryColor,
         centerTitle: true,
       ),
@@ -71,7 +71,7 @@ class MisComprasScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Imagen del producto
+                  // Product image
                   Container(
                     height: 150,
                     width: double.infinity,
@@ -84,7 +84,7 @@ class MisComprasScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  // Título y descripción
+                  // Title and description
                   Text(
                     product.title,
                     style: TextStyle(
@@ -112,7 +112,7 @@ class MisComprasScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  // Botones
+                  // Buttons
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -132,7 +132,7 @@ class MisComprasScreen extends StatelessWidget {
                             ),
                           );
                         },
-                        child: const Text("Ver Producto"),
+                        child: const Text("View Product"),
                       ),
                       const SizedBox(width: 8),
                       ElevatedButton(
@@ -146,11 +146,11 @@ class MisComprasScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => vendedor_disputa(),
+                              builder: (_) => SellerDisputeScreen(),
                             ),
                           );
                         },
-                        child: const Text("Abrir Disputa"),
+                        child: const Text("Open Dispute"),
                       ),
                     ],
                   ),

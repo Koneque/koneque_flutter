@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/colors.dart'; // Importa tu archivo de colores
+import '../theme/colors.dart'; // Import your color palette
 import 'vendedor_apelar.dart';
 import 'vendedor_revisardisputa.dart';
 
@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: vendedor_disputa(),
+      home: SellerDisputeScreen(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: primaryColor,
@@ -23,25 +23,25 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class vendedor_disputa extends StatefulWidget {
+class SellerDisputeScreen extends StatefulWidget {
   @override
-  State<vendedor_disputa> createState() => _vendedor_disputaState();
+  State<SellerDisputeScreen> createState() => _SellerDisputeScreenState();
 }
 
-class _vendedor_disputaState extends State<vendedor_disputa> {
-  String selectedProduct = '📱 celu3';
+class _SellerDisputeScreenState extends State<SellerDisputeScreen> {
+  String selectedProduct = '📱 Phone 3';
   String selectedPrice = '\$700 USD';
 
   final List<Map<String, String>> products = [];
 
-  // Estados de la línea de tiempo
+  // Timeline steps
   final List<String> timelineSteps = [
-    'Pago realizado',
-    'Producto entregado',
-    'Finalizado',
+    'Payment made',
+    'Product delivered',
+    'Completed',
   ];
 
-  int currentStep = 1; // ejemplo: el pedido ya fue entregado
+  int currentStep = 1; // Example: the order has been delivered
 
   void selectProduct(Map<String, String> product) {
     setState(() {
@@ -101,7 +101,7 @@ class _vendedor_disputaState extends State<vendedor_disputa> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('🛍️ Tienda Vendedor'),
+        title: Text('🛍️ Seller Store'),
         centerTitle: true,
         backgroundColor: primaryColor,
       ),
@@ -109,7 +109,7 @@ class _vendedor_disputaState extends State<vendedor_disputa> {
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
-            // Lista de productos horizontal
+            // Horizontal product list
             Container(
               height: 80,
               child: ListView.separated(
@@ -143,7 +143,7 @@ class _vendedor_disputaState extends State<vendedor_disputa> {
               ),
             ),
             SizedBox(height: 20),
-            // Imagen del producto
+            // Product image placeholder
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -160,7 +160,7 @@ class _vendedor_disputaState extends State<vendedor_disputa> {
                 ),
                 child: Center(
                   child: Text(
-                    '📸 Imagen de $selectedProduct',
+                    '📸 Image of $selectedProduct',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -171,7 +171,7 @@ class _vendedor_disputaState extends State<vendedor_disputa> {
               ),
             ),
             SizedBox(height: 16),
-            // Detalles del producto
+            // Product details
             Text(
               selectedProduct,
               style: TextStyle(
@@ -189,12 +189,11 @@ class _vendedor_disputaState extends State<vendedor_disputa> {
               ),
             ),
             SizedBox(height: 16),
-            // Línea de tiempo
+            // Timeline
             buildTimeline(),
             SizedBox(height: 16),
 
-            // Botones
-            // Botones
+            // Buttons
             SizedBox(height: 12),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
@@ -207,12 +206,12 @@ class _vendedor_disputaState extends State<vendedor_disputa> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => vendedor_apelar()),
+                  MaterialPageRoute(builder: (context) => SellerAppealScreen()),
                 );
               },
               icon: Icon(Icons.report_problem),
               label: Text(
-                'Apelar',
+                'Appeal',
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),
@@ -230,13 +229,13 @@ class _vendedor_disputaState extends State<vendedor_disputa> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Vendedor_revisardisputa(),
+                    builder: (context) => SellerReviewDisputePage(),
                   ),
                 );
               },
               icon: Icon(Icons.report_problem),
               label: Text(
-                'Revisar disputa',
+                'Review Dispute',
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),

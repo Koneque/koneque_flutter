@@ -3,9 +3,9 @@ import '../models/product_model.dart';
 import '../widgets/product_card.dart';
 import 'product_detail_screen.dart';
 import 'chat_inbox_screen.dart';
-import 'AddProductScreen.dart'; // <- nueva pantalla
+import 'AddProductScreen.dart';
 import 'vendedor_page.dart';
-import '/theme/colors.dart'; // <- Importa tu paleta de colores
+import '/theme/colors.dart';
 import 'miscompras.dart';
 import 'disputa_page.dart';
 
@@ -22,22 +22,22 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<ProductModel> dummyProducts = [
     ProductModel(
       id: '1',
-      title: 'Laptop Gamer x',
+      title: 'Gaming Laptop X',
       description: 'Intel i7, 16GB RAM, RTX 3060',
       price: 1200,
       imageUrl: 'assets/images/laptop.jpg',
     ),
     ProductModel(
       id: '2',
-      title: 'Bicicleta MTB',
-      description: 'Ruedas 29", frenos a disco',
+      title: 'MTB Bicycle',
+      description: '29" Wheels, Disc Brakes',
       price: 450,
       imageUrl: 'assets/images/bicicleta.jpg',
     ),
     ProductModel(
       id: '3',
-      title: 'Auriculares Bluetooth',
-      description: 'Noise Cancelling, 30h batería',
+      title: 'Bluetooth Headphones',
+      description: 'Noise Cancelling, 30h Battery',
       price: 80,
       imageUrl: 'assets/images/auriculares.jpg',
     ),
@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           IconButton(
             onPressed: () {
-              // TODO: acción de búsqueda
+              // TODO: search action
             },
             icon: const Icon(Icons.search, color: Colors.white),
           ),
@@ -79,30 +79,29 @@ class _HomeScreenState extends State<HomeScreen> {
             const DrawerHeader(
               decoration: BoxDecoration(color: primaryColor),
               child: Text(
-                "Menú",
+                "Menu",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
             ListTile(
               leading: const Icon(Icons.home),
-              title: const Text("Inicio"),
+              title: const Text("Home"),
               onTap: () => Navigator.pop(context),
             ),
             ListTile(
               leading: const Icon(Icons.shopping_cart),
-              title: const Text("Mis Compras"),
+              title: const Text("My Purchases"),
               onTap: () {
-                Navigator.pop(context); // cierra el Drawer
+                Navigator.pop(context);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => MisComprasScreen()),
                 );
               },
             ),
-
             ListTile(
               leading: const Icon(Icons.add),
-              title: const Text("Agregar Producto"),
+              title: const Text("Add Product"),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -113,18 +112,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               leading: const Icon(Icons.store),
-              title: const Text("Vendedor"),
+              title: const Text("Seller"),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => VendedorPage()),
+                  MaterialPageRoute(builder: (_) => SellerPage()),
                 );
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text("revisiones"),
+              title: const Text("Reviews"),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -139,22 +138,22 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Categorías en chips
+          // Categories as chips
           SizedBox(
             height: 60,
             child: ListView(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
               children: [
-                _buildCategoryChip("Tecnología"),
-                _buildCategoryChip("Deportes"),
-                _buildCategoryChip("Moda"),
-                _buildCategoryChip("Accesorios"),
+                _buildCategoryChip("Technology"),
+                _buildCategoryChip("Sports"),
+                _buildCategoryChip("Fashion"),
+                _buildCategoryChip("Accessories"),
               ],
             ),
           ),
 
-          // Lista de productos
+          // Product list
           Expanded(
             child: ListView.builder(
               itemCount: dummyProducts.length,
@@ -174,14 +173,15 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
           ),
-          // Banner/entrada rápida a Vendedor
+
+          // Banner/quick entry to Seller
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => VendedorPage()),
+                  MaterialPageRoute(builder: (_) => SellerPage()),
                 );
               },
               child: Container(
@@ -197,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(width: 12),
                     Expanded(
                       child: Text(
-                        'Vendedor — administra tus productos',
+                        'Seller — manage your products',
                         style: TextStyle(fontSize: 16),
                       ),
                     ),
@@ -222,11 +222,10 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (index) {
-          // Si el usuario toca la pestaña Vendedor (índice 3), abrimos la página del vendedor.
           if (index == 3) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => VendedorPage()),
+              MaterialPageRoute(builder: (_) => SellerPage()),
             );
             return;
           }
@@ -237,13 +236,13 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedItemColor: primaryColor,
         unselectedItemColor: Colors.grey,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Inicio"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            label: "Favoritos",
+            label: "Favorites",
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil"),
-          BottomNavigationBarItem(icon: Icon(Icons.store), label: "Vendedor"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          BottomNavigationBarItem(icon: Icon(Icons.store), label: "Seller"),
         ],
       ),
     );

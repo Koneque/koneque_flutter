@@ -23,16 +23,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _setupWalletListeners() {
-    // Escuchar cuando se conecte una wallet
     ReownService.onSessionConnect((session) {
       if (session != null && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Wallet conectada'),
+            content: Text('Wallet connected'),
             backgroundColor: Colors.green,
           ),
         );
-        // Navegar automáticamente al home cuando se conecte la wallet
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => const HomeScreen()),
@@ -47,12 +45,11 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
-      // Abrir el modal de conexión de Reown
       await ReownService.openModal(context);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Error al conectar wallet: $e'),
+          content: Text('Error connecting wallet: $e'),
           backgroundColor: Colors.red,
         ),
       );
@@ -70,7 +67,6 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Banner superior con gradiente y logo
             Container(
               height: 200,
               width: double.infinity,
@@ -94,83 +90,94 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: Colors.white.withOpacity(0.2),
                   ),
                   child: const Center(
-                    child:
-                        Icon(Icons.storefront, size: 60, color: Colors.white),
+                    child: Icon(
+                      Icons.storefront,
+                      size: 60,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 40),
 
-            // Título
             const Text(
-              "Bienvenido a Koneque",
+              "Welcome to Koneque",
               style: TextStyle(
-                  fontSize: 26, fontWeight: FontWeight.bold, color: textColor),
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+                color: textColor,
+              ),
             ),
             const SizedBox(height: 30),
 
-            // Formulario
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
                 children: [
-                  // Botón de conectar wallet (Web3)
                   SizedBox(
                     width: double.infinity,
                     height: 55,
                     child: ElevatedButton.icon(
                       onPressed: _isConnecting ? null : _connectWallet,
-                      icon: _isConnecting 
-                        ? const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                          )
-                        : const Icon(Icons.account_balance_wallet),
-                      label: Text(_isConnecting ? "Conectando..." : "Conectar Wallet"),
+                      icon: _isConnecting
+                          ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.white,
+                              ),
+                            )
+                          : const Icon(Icons.account_balance_wallet),
+                      label: Text(
+                        _isConnecting ? "Connecting..." : "Connect Wallet",
+                      ),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                         backgroundColor: accentColor,
                         foregroundColor: Colors.white,
                         elevation: 5,
                         shadowColor: accentColor.withOpacity(0.5),
                         textStyle: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
-                  
+
                   const SizedBox(height: 30),
-                  
-                  // Divider
+
                   Row(
                     children: [
                       Expanded(child: Divider(color: Colors.grey.shade400)),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          "O continúa con email",
+                          "Or continue with email",
                           style: TextStyle(color: Colors.grey.shade600),
                         ),
                       ),
                       Expanded(child: Divider(color: Colors.grey.shade400)),
                     ],
                   ),
-                  
+
                   const SizedBox(height: 30),
 
-                  // Email
                   TextFormField(
                     controller: emailController,
                     decoration: InputDecoration(
-                      labelText: "Correo electrónico",
+                      labelText: "Email",
                       prefixIcon: const Icon(Icons.email),
                       filled: true,
                       fillColor: Colors.white,
                       contentPadding: const EdgeInsets.symmetric(
-                          vertical: 18, horizontal: 20),
+                        vertical: 18,
+                        horizontal: 20,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                         borderSide: BorderSide.none,
@@ -179,17 +186,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 20),
 
-                  // Password
                   TextFormField(
                     controller: passController,
                     obscureText: true,
                     decoration: InputDecoration(
-                      labelText: "Contraseña",
+                      labelText: "Password",
                       prefixIcon: const Icon(Icons.lock),
                       filled: true,
                       fillColor: Colors.white,
                       contentPadding: const EdgeInsets.symmetric(
-                          vertical: 18, horizontal: 20),
+                        vertical: 18,
+                        horizontal: 20,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                         borderSide: BorderSide.none,
@@ -198,7 +206,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 30),
 
-                  // Login Button con sombra y gradiente
                   SizedBox(
                     width: double.infinity,
                     height: 55,
@@ -211,34 +218,37 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                         backgroundColor: primaryColor,
-                        foregroundColor: Colors.white, // Texto blanco
+                        foregroundColor: Colors.white,
                         elevation: 5,
                         shadowColor: primaryColor.withOpacity(0.5),
                         textStyle: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      child: const Text("Iniciar sesión"),
+                      child: const Text("Sign In"),
                     ),
                   ),
                   const SizedBox(height: 15),
 
-                  // Opción de registro
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("¿No tienes cuenta? "),
+                      const Text("Don't have an account? "),
                       TextButton(
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => const RegisterScreen()),
+                              builder: (_) => const RegisterScreen(),
+                            ),
                           );
                         },
                         child: Text(
-                          "Regístrate",
+                          "Sign Up",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: primaryColor,
@@ -250,35 +260,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   const SizedBox(height: 20),
 
-                  // Mostrar información de wallet si está conectada (TODO: implementar con Reown)
-                  // if (ReownService.isConnected) ...[
-                  //   Container(
-                  //     padding: const EdgeInsets.all(16),
-                  //     decoration: BoxDecoration(
-                  //       color: Colors.green.shade50,
-                  //       borderRadius: BorderRadius.circular(12),
-                  //       border: Border.all(color: Colors.green.shade200),
-                  //     ),
-                  //     child: Column(
-                  //       children: [
-                  //         const Icon(Icons.check_circle, color: Colors.green, size: 32),
-                  //         const SizedBox(height: 8),
-                  //         const Text(
-                  //           "Wallet Conectada",
-                  //           style: TextStyle(fontWeight: FontWeight.bold),
-                  //         ),
-                  //         const SizedBox(height: 4),
-                  //         Text(
-                  //           'Dirección de wallet',
-                  //           style: const TextStyle(fontSize: 12, fontFamily: 'monospace'),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  //   const SizedBox(height: 20),
-                  // ],
-
-                  // Botones sociales (opcional)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -298,10 +279,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _socialButton(IconData icon, Color color) {
     return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: color,
-      ),
+      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
       padding: const EdgeInsets.all(14),
       child: Icon(icon, color: Colors.white, size: 28),
     );

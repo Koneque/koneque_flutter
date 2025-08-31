@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/product_model.dart';
 import '../models/cart.dart';
-import '../theme/colors.dart'; // tu archivo de colores
+import '../theme/colors.dart'; // your color palette
 import 'cart_screen.dart';
 import 'ChatDetailScreen.dart';
 
@@ -22,7 +22,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     final code = _couponController.text.trim();
     if (code.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Por favor ingresa un código de cupón")),
+        const SnackBar(content: Text("Please enter a coupon code")),
       );
       return;
     }
@@ -33,7 +33,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         _discountedPrice = widget.product.price * 0.9;
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Cupón aplicado: 10% de descuento")),
+        const SnackBar(content: Text("Coupon applied: 10% discount")),
       );
     } else {
       setState(() {
@@ -42,7 +42,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       });
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text("Cupón inválido")));
+      ).showSnackBar(const SnackBar(content: Text("Invalid coupon")));
     }
   }
 
@@ -57,7 +57,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       ),
     );
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("${widget.product.title} agregado al carrito")),
+      SnackBar(content: Text("${widget.product.title} added to cart")),
     );
   }
 
@@ -154,7 +154,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   child: TextField(
                     controller: _couponController,
                     decoration: InputDecoration(
-                      hintText: "Código de cupón",
+                      hintText: "Coupon code",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -171,7 +171,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     backgroundColor: primaryColor,
                     foregroundColor: Colors.white,
                   ),
-                  child: const Text("Aplicar"),
+                  child: const Text("Apply"),
                 ),
               ],
             ),
@@ -179,7 +179,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ElevatedButton.icon(
               onPressed: _addToCart,
               icon: const Icon(Icons.shopping_cart),
-              label: const Text("Agregar al carrito"),
+              label: const Text("Add to cart"),
               style: ElevatedButton.styleFrom(
                 backgroundColor: primaryColor,
                 foregroundColor: Colors.white,
@@ -189,9 +189,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
             const SizedBox(height: 32),
 
-            // Simulación de reseñas de usuarios
+            // User reviews simulation
             const Text(
-              "Reseñas de usuarios (simulado)",
+              "User Reviews (simulated)",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
@@ -199,9 +199,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            _buildReview("Juan", "Excelente calidad, muy recomendado!", 5),
-            _buildReview("María", "Buena relación calidad-precio.", 4),
-            _buildReview("Carlos", "El envío fue rápido.", 5),
+            _buildReview("Juan", "Excellent quality, highly recommended!", 5),
+            _buildReview("María", "Good value for money.", 4),
+            _buildReview("Carlos", "Fast shipping.", 5),
           ],
         ),
       ),

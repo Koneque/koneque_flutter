@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/colors.dart'; // Importa tu archivo de colores
+import '../theme/colors.dart'; // Import your color palette
 import 'vendedor_disputa.dart';
 
 void main() => runApp(MyApp());
@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Vendedor_revisardisputa(),
+      home: SellerReviewDisputePage(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: primaryColor,
@@ -22,31 +22,31 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Vendedor_revisardisputa extends StatefulWidget {
+class SellerReviewDisputePage extends StatefulWidget {
   @override
-  State<Vendedor_revisardisputa> createState() =>
-      _Vendedor_revisardisputaState();
+  State<SellerReviewDisputePage> createState() =>
+      _SellerReviewDisputePageState();
 }
 
-class _Vendedor_revisardisputaState extends State<Vendedor_revisardisputa> {
-  String selectedProduct = '📱 celu3';
+class _SellerReviewDisputePageState extends State<SellerReviewDisputePage> {
+  String selectedProduct = '📱 Phone 3';
   String selectedPrice = '\$700 USD';
 
   final List<Map<String, String>> products = [
-    {'name': '📱 celu3', 'price': '\$700 USD'},
-    {'name': '🎒 mochila', 'price': '\$50 USD'},
-    {'name': '⌚ reloj', 'price': '\$120 USD'},
-    {'name': '💻 tablet', 'price': '\$450 USD'},
+    {'name': '📱 Phone 3', 'price': '\$700 USD'},
+    {'name': '🎒 Backpack', 'price': '\$50 USD'},
+    {'name': '⌚ Watch', 'price': '\$120 USD'},
+    {'name': '💻 Tablet', 'price': '\$450 USD'},
   ];
 
-  // Estados de la línea de tiempo
+  // Timeline steps
   final List<String> timelineSteps = [
-    'Pago realizado',
-    'Producto entregado',
-    'en revision',
+    'Payment made',
+    'Product delivered',
+    'Under review',
   ];
 
-  int currentStep = 1; // ejemplo: el pedido ya fue entregado
+  int currentStep = 1; // Example: order already delivered
 
   void selectProduct(Map<String, String> product) {
     setState(() {
@@ -106,7 +106,7 @@ class _Vendedor_revisardisputaState extends State<Vendedor_revisardisputa> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('🛍️ Tienda Vendedor'),
+        title: Text('🛍️ Seller Store'),
         centerTitle: true,
         backgroundColor: primaryColor,
       ),
@@ -114,7 +114,7 @@ class _Vendedor_revisardisputaState extends State<Vendedor_revisardisputa> {
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
-            // Lista de productos horizontal
+            // Horizontal product list
             Container(
               height: 80,
               child: ListView.separated(
@@ -148,7 +148,7 @@ class _Vendedor_revisardisputaState extends State<Vendedor_revisardisputa> {
               ),
             ),
             SizedBox(height: 20),
-            // Imagen del producto
+            // Product image placeholder
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -165,7 +165,7 @@ class _Vendedor_revisardisputaState extends State<Vendedor_revisardisputa> {
                 ),
                 child: Center(
                   child: Text(
-                    '📸 Imagen de $selectedProduct',
+                    '📸 Image of $selectedProduct',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -176,7 +176,7 @@ class _Vendedor_revisardisputaState extends State<Vendedor_revisardisputa> {
               ),
             ),
             SizedBox(height: 16),
-            // Detalles del producto
+            // Product details
             Text(
               selectedProduct,
               style: TextStyle(
@@ -194,11 +194,10 @@ class _Vendedor_revisardisputaState extends State<Vendedor_revisardisputa> {
               ),
             ),
             SizedBox(height: 16),
-            // Línea de tiempo
+            // Timeline
             buildTimeline(),
             SizedBox(height: 16),
-
-            // Botones
+            // Buttons
             SizedBox(height: 12),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
@@ -211,12 +210,14 @@ class _Vendedor_revisardisputaState extends State<Vendedor_revisardisputa> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => vendedor_disputa()),
+                  MaterialPageRoute(
+                    builder: (context) => SellerDisputeScreen(),
+                  ),
                 );
               },
               icon: Icon(Icons.report_problem),
               label: Text(
-                'Revisar disputa',
+                'Review Dispute',
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),

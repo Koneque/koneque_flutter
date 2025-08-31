@@ -11,10 +11,10 @@ class ChatDetailScreen extends StatefulWidget {
 
 class _ChatDetailScreenState extends State<ChatDetailScreen> {
   final List<Map<String, String>> messages = [
-    {'sender': 'Tú', 'text': 'Buen día, estoy interesado en el producto.'},
-    {'sender': 'Vendedor', 'text': 'Hola, ¿te interesa la laptop?'},
-    {'sender': 'Tú', 'text': 'Sí, todavía estoy interesado.'},
-    {'sender': 'Vendedor', 'text': 'Perfecto, podemos coordinar la entrega.'},
+    {'sender': 'You', 'text': 'Good morning, I am interested in the product.'},
+    {'sender': 'Seller', 'text': 'Hi, are you interested in the laptop?'},
+    {'sender': 'You', 'text': 'Yes, I am still interested.'},
+    {'sender': 'Seller', 'text': 'Perfect, we can coordinate the delivery.'},
   ];
 
   final TextEditingController messageController = TextEditingController();
@@ -25,7 +25,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     if (text.isEmpty) return;
 
     setState(() {
-      messages.add({'sender': 'Tú', 'text': text});
+      messages.add({'sender': 'You', 'text': text});
     });
     messageController.clear();
 
@@ -52,7 +52,6 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       ),
       body: Column(
         children: [
-          // Mensajes
           Expanded(
             child: ListView.builder(
               controller: scrollController,
@@ -60,10 +59,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
               itemCount: messages.length,
               itemBuilder: (_, index) {
                 final msg = messages[index];
-                final isBuyer = msg['sender'] == 'Tú';
+                final isBuyer = msg['sender'] == 'You';
                 return Align(
-                  alignment:
-                      isBuyer ? Alignment.centerRight : Alignment.centerLeft,
+                  alignment: isBuyer
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
                   child: Container(
                     margin: const EdgeInsets.symmetric(vertical: 4),
                     padding: const EdgeInsets.all(12),
@@ -86,7 +86,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                             child: Text(
                               msg['sender']![0],
                               style: const TextStyle(
-                                  color: Colors.white, fontSize: 12),
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
                             ),
                           ),
                         if (!isBuyer) const SizedBox(width: 6),
@@ -106,10 +108,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
             ),
           ),
 
-          // Input para mensaje
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12.0,
+              vertical: 6.0,
+            ),
             color: Colors.white,
             child: Row(
               children: [
@@ -125,9 +128,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                   child: TextField(
                     controller: messageController,
                     decoration: InputDecoration(
-                      hintText: "Escribe un mensaje...",
+                      hintText: "Type a message...",
                       contentPadding: const EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 16),
+                        vertical: 12,
+                        horizontal: 16,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(24),
                         borderSide: BorderSide.none,

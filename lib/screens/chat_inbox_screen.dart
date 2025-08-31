@@ -5,22 +5,21 @@ import 'ChatDetailScreen.dart'; // pantalla de detalle del chat
 class ChatInboxScreen extends StatelessWidget {
   const ChatInboxScreen({super.key});
 
-  // Lista de conversaciones dummy
   final List<Map<String, String>> dummyConversations = const [
     {
       'name': 'Juan',
-      'lastMessage': 'Hola, ¿aún tienes la laptop?',
-      'time': '12:30'
+      'lastMessage': 'Hi, do you still have the laptop?',
+      'time': '12:30',
     },
     {
       'name': 'María',
-      'lastMessage': 'Perfecto, nos vemos mañana.',
-      'time': '09:15'
+      'lastMessage': 'Perfect, see you tomorrow.',
+      'time': '09:15',
     },
     {
       'name': 'Carlos',
-      'lastMessage': 'Gracias por el envío rápido!',
-      'time': '15:45'
+      'lastMessage': 'Thanks for the quick delivery!',
+      'time': '15:45',
     },
   ];
 
@@ -29,7 +28,7 @@ class ChatInboxScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Bandeja de Entrada",
+          "Inbox",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: primaryColor,
@@ -57,13 +56,10 @@ class ChatInboxScreen extends StatelessWidget {
               style: const TextStyle(fontSize: 12, color: Colors.grey),
             ),
             onTap: () {
-              // Navega a ChatDetailScreen al presionar la conversación
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => ChatDetailScreen(
-                    contactName: convo['name']!,
-                  ),
+                  builder: (_) => ChatDetailScreen(contactName: convo['name']!),
                 ),
               );
             },

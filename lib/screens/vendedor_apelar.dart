@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/colors.dart'; // Importa tu archivo de colores
+import '../theme/colors.dart'; // Your color palette
 
 void main() => runApp(MyApp());
 
@@ -7,7 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: vendedor_apelar(),
+      home: SellerAppealScreen(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: primaryColor,
@@ -21,28 +21,28 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class vendedor_apelar extends StatefulWidget {
+class SellerAppealScreen extends StatefulWidget {
   @override
-  State<vendedor_apelar> createState() => _vendedor_apelarState();
+  State<SellerAppealScreen> createState() => _SellerAppealScreenState();
 }
 
-class _vendedor_apelarState extends State<vendedor_apelar> {
-  String selectedProduct = '📱 celu3';
+class _SellerAppealScreenState extends State<SellerAppealScreen> {
+  String selectedProduct = '📱 Phone 3';
   String selectedPrice = '\$700 USD';
 
-  final TextEditingController motivoController = TextEditingController();
-  final TextEditingController descImagenController = TextEditingController();
+  final TextEditingController reasonController = TextEditingController();
+  final TextEditingController imageDescController = TextEditingController();
 
   final List<Map<String, String>> products = [];
 
-  // Estados de la línea de tiempo
+  // Timeline steps
   final List<String> timelineSteps = [
-    'Pago realizado',
-    'Producto entregado',
-    'Finalizado',
+    'Payment made',
+    'Product delivered',
+    'Completed',
   ];
 
-  int currentStep = 1; // ejemplo: el pedido ya fue entregado
+  int currentStep = 1; // Example: the order has been delivered
 
   void selectProduct(Map<String, String> product) {
     setState(() {
@@ -102,7 +102,7 @@ class _vendedor_apelarState extends State<vendedor_apelar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('🛍️ Tienda Vendedor'),
+        title: Text('🛍️ Seller Store'),
         centerTitle: true,
         backgroundColor: primaryColor,
       ),
@@ -110,7 +110,7 @@ class _vendedor_apelarState extends State<vendedor_apelar> {
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
-            // Lista de productos horizontal
+            // Horizontal product list
             Container(
               height: 80,
               child: ListView.separated(
@@ -144,7 +144,7 @@ class _vendedor_apelarState extends State<vendedor_apelar> {
               ),
             ),
             SizedBox(height: 20),
-            // Imagen del producto
+            // Product image placeholder
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -161,7 +161,7 @@ class _vendedor_apelarState extends State<vendedor_apelar> {
                 ),
                 child: Center(
                   child: Text(
-                    '📸 Imagen de $selectedProduct',
+                    '📸 Image of $selectedProduct',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -172,7 +172,7 @@ class _vendedor_apelarState extends State<vendedor_apelar> {
               ),
             ),
             SizedBox(height: 16),
-            // Detalles del producto
+            // Product details
             Text(
               selectedProduct,
               style: TextStyle(
@@ -190,15 +190,13 @@ class _vendedor_apelarState extends State<vendedor_apelar> {
               ),
             ),
             SizedBox(height: 16),
-
-            SizedBox(height: 16),
-            // Campos de apelación
+            // Appeal fields
             SizedBox(height: 12),
             TextField(
-              controller: motivoController,
+              controller: reasonController,
               decoration: InputDecoration(
-                labelText: 'Motivo',
-                hintText: 'Ingresa el motivo de la apelación',
+                labelText: 'Reason',
+                hintText: 'Enter the reason for the appeal',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -208,11 +206,11 @@ class _vendedor_apelarState extends State<vendedor_apelar> {
             ),
             SizedBox(height: 12),
             TextField(
-              controller: descImagenController,
+              controller: imageDescController,
               maxLines: 3,
               decoration: InputDecoration(
-                labelText: 'Desc imagen',
-                hintText: 'Descripción de la imagen (opcional)',
+                labelText: 'Image description',
+                hintText: 'Description of the image (optional)',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -230,20 +228,19 @@ class _vendedor_apelarState extends State<vendedor_apelar> {
                 ),
               ),
               onPressed: () {
-                // Acción de apelar: por ahora mostramos un snackbar con los valores
-                final motivo = motivoController.text.trim();
-                final desc = descImagenController.text.trim();
+                final reason = reasonController.text.trim();
+                final desc = imageDescController.text.trim();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                      'Apelar - motivo: ${motivo.isEmpty ? '<vacío>' : motivo}, desc imagen: ${desc.isEmpty ? '<vacío>' : desc}',
+                      'Appeal - reason: ${reason.isEmpty ? '<empty>' : reason}, image desc: ${desc.isEmpty ? '<empty>' : desc}',
                     ),
                   ),
                 );
               },
               icon: Icon(Icons.report_problem),
               label: Text(
-                'Apelar',
+                'Submit Appeal',
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),
@@ -256,8 +253,8 @@ class _vendedor_apelarState extends State<vendedor_apelar> {
 
   @override
   void dispose() {
-    motivoController.dispose();
-    descImagenController.dispose();
+    reasonController.dispose();
+    imageDescController.dispose();
     super.dispose();
   }
 }

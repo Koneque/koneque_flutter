@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/colors.dart'; // Importa tu archivo de colores
+import '../theme/colors.dart'; // Import your color palette
 import 'vendedor_disputa.dart';
 
 void main() => runApp(MyApp());
@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: VendedorPage(),
+      home: SellerPage(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: primaryColor,
@@ -22,30 +22,30 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class VendedorPage extends StatefulWidget {
+class SellerPage extends StatefulWidget {
   @override
-  State<VendedorPage> createState() => _VendedorPageState();
+  State<SellerPage> createState() => _SellerPageState();
 }
 
-class _VendedorPageState extends State<VendedorPage> {
-  String selectedProduct = '📱 celu3';
+class _SellerPageState extends State<SellerPage> {
+  String selectedProduct = '📱 Phone 3';
   String selectedPrice = '\$700 USD';
 
   final List<Map<String, String>> products = [
-    {'name': '📱 celu3', 'price': '\$700 USD'},
-    {'name': '🎒 mochila', 'price': '\$50 USD'},
-    {'name': '⌚ reloj', 'price': '\$120 USD'},
-    {'name': '💻 tablet', 'price': '\$450 USD'},
+    {'name': '📱 Phone 3', 'price': '\$700 USD'},
+    {'name': '🎒 Backpack', 'price': '\$50 USD'},
+    {'name': '⌚ Watch', 'price': '\$120 USD'},
+    {'name': '💻 Tablet', 'price': '\$450 USD'},
   ];
 
-  // Estados de la línea de tiempo
+  // Timeline steps
   final List<String> timelineSteps = [
-    'Pago realizado',
-    'Producto entregado',
-    'Finalizado',
+    'Payment made',
+    'Product delivered',
+    'Completed',
   ];
 
-  int currentStep = 1; // ejemplo: el pedido ya fue entregado
+  int currentStep = 1; // Example: the order has been delivered
 
   void selectProduct(Map<String, String> product) {
     setState(() {
@@ -105,7 +105,7 @@ class _VendedorPageState extends State<VendedorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('🛍️ Tienda Vendedor'),
+        title: Text('🛍️ Seller Store'),
         centerTitle: true,
         backgroundColor: primaryColor,
       ),
@@ -113,7 +113,7 @@ class _VendedorPageState extends State<VendedorPage> {
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
-            // Lista de productos horizontal
+            // Horizontal product list
             Container(
               height: 80,
               child: ListView.separated(
@@ -147,7 +147,7 @@ class _VendedorPageState extends State<VendedorPage> {
               ),
             ),
             SizedBox(height: 20),
-            // Imagen del producto
+            // Product image placeholder
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -164,7 +164,7 @@ class _VendedorPageState extends State<VendedorPage> {
                 ),
                 child: Center(
                   child: Text(
-                    '📸 Imagen de $selectedProduct',
+                    '📸 Image of $selectedProduct',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -175,7 +175,7 @@ class _VendedorPageState extends State<VendedorPage> {
               ),
             ),
             SizedBox(height: 16),
-            // Detalles del producto
+            // Product details
             Text(
               selectedProduct,
               style: TextStyle(
@@ -193,10 +193,10 @@ class _VendedorPageState extends State<VendedorPage> {
               ),
             ),
             SizedBox(height: 16),
-            // Línea de tiempo
+            // Timeline
             buildTimeline(),
             SizedBox(height: 16),
-            // Botones
+            // Buttons
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 backgroundColor: primaryColor,
@@ -207,10 +207,7 @@ class _VendedorPageState extends State<VendedorPage> {
               ),
               onPressed: () {},
               icon: Icon(Icons.check),
-              label: Text(
-                'Marcar como completado',
-                style: TextStyle(fontSize: 16),
-              ),
+              label: Text('Mark as Completed', style: TextStyle(fontSize: 16)),
             ),
             SizedBox(height: 12),
             ElevatedButton.icon(
@@ -224,12 +221,14 @@ class _VendedorPageState extends State<VendedorPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => vendedor_disputa()),
+                  MaterialPageRoute(
+                    builder: (context) => SellerDisputeScreen(),
+                  ),
                 );
               },
               icon: Icon(Icons.report_problem),
               label: Text(
-                'Revisar disputa',
+                'Review Dispute',
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),
