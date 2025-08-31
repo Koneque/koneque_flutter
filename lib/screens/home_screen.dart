@@ -4,10 +4,18 @@ import '../widgets/product_card.dart';
 import 'product_detail_screen.dart';
 import 'chat_inbox_screen.dart';
 import 'addProductScreen.dart'; // <- nueva pantalla
+import 'vendedor_page.dart';
 import '/theme/colors.dart'; // <- Importa tu paleta de colores
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
 
   final List<ProductModel> dummyProducts = [
     ProductModel(
@@ -90,7 +98,18 @@ class HomeScreen extends StatelessWidget {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const AddProductScreen()),
+                  MaterialPageRoute(builder: (_) => AddProductScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.store),
+              title: const Text("Vendedor"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => VendedorPage()),
                 );
               },
             ),
@@ -140,6 +159,39 @@ class HomeScreen extends StatelessWidget {
               },
             ),
           ),
+          // Banner/entrada rápida a Vendedor
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => VendedorPage()),
+                );
+              },
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: secondaryColor.withAlpha((0.1 * 255).round()),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: const [
+                    Icon(Icons.storefront, size: 28, color: primaryColor),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        'Vendedor — administra tus productos',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                    Icon(Icons.arrow_forward_ios, size: 16),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -153,13 +205,30 @@ class HomeScreen extends StatelessWidget {
         child: const Icon(Icons.add, color: Colors.white),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          // Si el usuario toca la pestaña Vendedor (índice 3), abrimos la página del vendedor.
+          if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => VendedorPage()),
+            );
+            return;
+          }
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
         selectedItemColor: primaryColor,
         unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Inicio"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), label: "Favoritos"),
+            icon: Icon(Icons.favorite),
+            label: "Favoritos",
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil"),
+          BottomNavigationBarItem(icon: Icon(Icons.store), label: "Vendedor"),
         ],
       ),
     );
@@ -169,11 +238,8 @@ class HomeScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Chip(
-        backgroundColor: secondaryColor.withOpacity(0.2),
-        label: Text(
-          text,
-          style: const TextStyle(color: textColor),
-        ),
+        backgroundColor: secondaryColor.withAlpha((0.2 * 255).round()),
+        label: Text(text, style: const TextStyle(color: textColor)),
       ),
     );
   }
