@@ -3,7 +3,7 @@ import '../models/product_model.dart';
 import '../widgets/product_card.dart';
 import 'product_detail_screen.dart';
 import 'chat_inbox_screen.dart';
-import 'addProductScreen.dart'; // <- nueva pantalla
+import 'AddProductScreen.dart'; // <- nueva pantalla
 import 'vendedor_page.dart';
 import '/theme/colors.dart'; // <- Importa tu paleta de colores
 import 'miscompras.dart';
