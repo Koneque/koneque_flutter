@@ -1,0 +1,38 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {"name": "transactionId", "type": "uint256"},
+        {"name": "amount", "type": "uint256"}
+      ],
+      "name": "calculateFees",
+      "outputs": [
+        {"name": "platformFee", "type": "uint256"},
+        {"name": "referralReward", "type": "uint256"}
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{"name": "transactionId", "type": "uint256"}],
+      "name": "distributeFees",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getPlatformFeeRate",
+      "outputs": [{"name": "", "type": "uint256"}],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getReferralRewardRate",
+      "outputs": [{"name": "", "type": "uint256"}],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}

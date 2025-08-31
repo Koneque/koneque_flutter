@@ -1,0 +1,80 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {"name": "price", "type": "uint256"},
+        {"name": "metadataURI", "type": "string"},
+        {"name": "category", "type": "string"}
+      ],
+      "name": "listItem",
+      "outputs": [{"name": "", "type": "uint256"}],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [{"name": "itemId", "type": "uint256"}],
+      "name": "buyItem",
+      "outputs": [{"name": "", "type": "uint256"}],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [{"name": "transactionId", "type": "uint256"}],
+      "name": "confirmDelivery",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [{"name": "transactionId", "type": "uint256"}],
+      "name": "finalizeTransaction",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [{"name": "itemId", "type": "uint256"}],
+      "name": "getItem",
+      "outputs": [
+        {"name": "id", "type": "uint256"},
+        {"name": "seller", "type": "address"},
+        {"name": "price", "type": "uint256"},
+        {"name": "metadataURI", "type": "string"},
+        {"name": "category", "type": "string"},
+        {"name": "isActive", "type": "bool"},
+        {"name": "listedAt", "type": "uint256"}
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getActiveItems",
+      "outputs": [{"name": "", "type": "uint256[]"}],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{"name": "transactionId", "type": "uint256"}],
+      "name": "getTransactionDetails",
+      "outputs": [
+        {"name": "id", "type": "uint256"},
+        {"name": "itemId", "type": "uint256"},
+        {"name": "buyer", "type": "address"},
+        {"name": "seller", "type": "address"},
+        {"name": "amount", "type": "uint256"},
+        {"name": "status", "type": "uint8"},
+        {"name": "createdAt", "type": "uint256"}
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{"name": "status", "type": "uint8"}],
+      "name": "getTransactionsByStatus",
+      "outputs": [{"name": "", "type": "uint256[]"}],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}

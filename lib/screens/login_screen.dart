@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'register_screen.dart';
-import 'home_screen.dart';
+import 'marketplace_screen.dart';
+import 'test_wallet_screen.dart';
 import '/theme/colors.dart';
 import '../services/reown_service.dart';
+import '../services/reown_service_v2.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -27,13 +30,13 @@ class _LoginScreenState extends State<LoginScreen> {
       if (session != null && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Wallet connected'),
+            content: Text('🎉 Wallet conectada exitosamente'),
             backgroundColor: Colors.green,
           ),
         );
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
+          MaterialPageRoute(builder: (_) => const MarketplaceScreen()),
         );
       }
     });
@@ -49,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Error connecting wallet: $e'),
+          content: Text('Error conectando wallet: $e'),
           backgroundColor: Colors.red,
         ),
       );
@@ -113,12 +116,26 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: textColor,
               ),
             ),
+            const SizedBox(height: 10),
+            
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Text(
+                "Marketplace Descentralizado\nConecta tu wallet para comenzar",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey.shade600,
+                ),
+              ),
+            ),
             const SizedBox(height: 30),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
                 children: [
+                  // Botón principal de Connect Wallet
                   SizedBox(
                     width: double.infinity,
                     height: 55,
@@ -135,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             )
                           : const Icon(Icons.account_balance_wallet),
                       label: Text(
-                        _isConnecting ? "Connecting..." : "Connect Wallet",
+                        _isConnecting ? "Conectando..." : "Conectar Wallet Web3",
                       ),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -153,6 +170,35 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
 
+                  const SizedBox(height: 20),
+                  
+                  // Botón de acceso directo al marketplace
+                  SizedBox(
+                    width: double.infinity,
+                    height: 55,
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (_) => const MarketplaceScreen()),
+                        );
+                      },
+                      icon: const Icon(Icons.shopping_bag),
+                      label: const Text("Explorar Marketplace"),
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        side: BorderSide(color: primaryColor, width: 2),
+                        foregroundColor: primaryColor,
+                        textStyle: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
                   const SizedBox(height: 30),
 
                   Row(
@@ -161,7 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          "Or continue with email",
+                          "O continúa con email",
                           style: TextStyle(color: Colors.grey.shade600),
                         ),
                       ),
@@ -217,7 +263,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (_) => const HomeScreen()),
+                          MaterialPageRoute(builder: (_) => const MarketplaceScreen()),
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -233,7 +279,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      child: const Text("Sign In"),
+                      child: const Text("Iniciar Sesión"),
                     ),
                   ),
                   const SizedBox(height: 15),
@@ -241,7 +287,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Don't have an account? "),
+                      const Text("¿No tienes cuenta? "),
                       TextButton(
                         onPressed: () {
                           Navigator.push(
@@ -252,7 +298,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         },
                         child: Text(
-                          "Sign Up",
+                          "Registrarse",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: primaryColor,
@@ -260,6 +306,37 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ],
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Información sobre funcionalidades Web3
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.blue.shade50,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.blue.shade200),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          "🚀 Funcionalidades Web3",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue.shade800,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          "• Marketplace descentralizado\n• Smart contracts en Base Sepolia\n• Sistema de referidos con tokens\n• Transacciones seguras con escrow",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.blue.shade700,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
 
                   const SizedBox(height: 20),
@@ -272,6 +349,56 @@ class _LoginScreenState extends State<LoginScreen> {
                       _socialButton(Icons.apple, Colors.black),
                     ],
                   ),
+
+                  // Botón de debug solo en modo debug
+                  if (kDebugMode) ...[
+                    const SizedBox(height: 30),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.orange.shade50,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.orange.shade200),
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            "🔧 Debug Tools",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.orange.shade800,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          ElevatedButton.icon(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const TestWalletScreen(),
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.bug_report),
+                            label: const Text('Test Wallet V2'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.orange,
+                              foregroundColor: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            "Prueba ReownServiceV2 con debugging avanzado",
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.orange.shade700,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
