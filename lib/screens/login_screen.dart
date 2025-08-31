@@ -2,15 +2,69 @@ import 'package:flutter/material.dart';
 import 'register_screen.dart';
 import 'home_screen.dart';
 import '/theme/colors.dart';
+import '../services/reown_service.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final emailController = TextEditingController();
-    final passController = TextEditingController();
+  State<LoginScreen> createState() => _LoginScreenState();
+}
 
+class _LoginScreenState extends State<LoginScreen> {
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
+  bool _isConnecting = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _setupWalletListeners();
+  }
+
+  void _setupWalletListeners() {
+    // Escuchar cuando se conecte una wallet
+    ReownService.onSessionConnect((session) {
+      if (session != null && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Wallet conectada'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        // Navegar automáticamente al home cuando se conecte la wallet
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const HomeScreen()),
+        );
+      }
+    });
+  }
+
+  Future<void> _connectWallet() async {
+    setState(() {
+      _isConnecting = true;
+    });
+
+    try {
+      // Abrir el modal de conexión de Reown
+      await ReownService.openModal(context);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error al conectar wallet: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } finally {
+      setState(() {
+        _isConnecting = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
@@ -61,6 +115,52 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
                 children: [
+                  // Botón de conectar wallet (Web3)
+                  SizedBox(
+                    width: double.infinity,
+                    height: 55,
+                    child: ElevatedButton.icon(
+                      onPressed: _isConnecting ? null : _connectWallet,
+                      icon: _isConnecting 
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                          )
+                        : const Icon(Icons.account_balance_wallet),
+                      label: Text(_isConnecting ? "Conectando..." : "Conectar Wallet"),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        backgroundColor: accentColor,
+                        foregroundColor: Colors.white,
+                        elevation: 5,
+                        shadowColor: accentColor.withOpacity(0.5),
+                        textStyle: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  
+                  const SizedBox(height: 30),
+                  
+                  // Divider
+                  Row(
+                    children: [
+                      Expanded(child: Divider(color: Colors.grey.shade400)),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          "O continúa con email",
+                          style: TextStyle(color: Colors.grey.shade600),
+                        ),
+                      ),
+                      Expanded(child: Divider(color: Colors.grey.shade400)),
+                    ],
+                  ),
+                  
+                  const SizedBox(height: 30),
+
                   // Email
                   TextFormField(
                     controller: emailController,
@@ -106,7 +206,7 @@ class LoginScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (_) => HomeScreen()),
+                          MaterialPageRoute(builder: (_) => const HomeScreen()),
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -150,6 +250,34 @@ class LoginScreen extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
+                  // Mostrar información de wallet si está conectada (TODO: implementar con Reown)
+                  // if (ReownService.isConnected) ...[
+                  //   Container(
+                  //     padding: const EdgeInsets.all(16),
+                  //     decoration: BoxDecoration(
+                  //       color: Colors.green.shade50,
+                  //       borderRadius: BorderRadius.circular(12),
+                  //       border: Border.all(color: Colors.green.shade200),
+                  //     ),
+                  //     child: Column(
+                  //       children: [
+                  //         const Icon(Icons.check_circle, color: Colors.green, size: 32),
+                  //         const SizedBox(height: 8),
+                  //         const Text(
+                  //           "Wallet Conectada",
+                  //           style: TextStyle(fontWeight: FontWeight.bold),
+                  //         ),
+                  //         const SizedBox(height: 4),
+                  //         Text(
+                  //           'Dirección de wallet',
+                  //           style: const TextStyle(fontSize: 12, fontFamily: 'monospace'),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  //   const SizedBox(height: 20),
+                  // ],
+
                   // Botones sociales (opcional)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -177,5 +305,12 @@ class LoginScreen extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       child: Icon(icon, color: Colors.white, size: 28),
     );
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passController.dispose();
+    super.dispose();
   }
 }
