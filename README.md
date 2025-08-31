@@ -1,70 +1,71 @@
-# 🚀 Koneque Flutter - Marketplace Descentralizado
+````markdown
+# 🚀 Koneque Flutter - Decentralized Marketplace
 
-Aplicación móvil de marketplace descentralizado construida con Flutter, integrada con contratos inteligentes de Koneque desplegados en Base Sepolia.
+Decentralized marketplace mobile application built with Flutter, integrated with Koneque smart contracts deployed on Base Sepolia.
 
-## 📋 Características Implementadas
+## 📋 Implemented Features
 
-### 🔐 Integración Web3
-- **Reown (WalletConnect)**: Conexión de wallets descentralizadas
-- **Base Sepolia**: Red de pruebas compatible con Ethereum
-- **Smart Contracts**: Integración completa con el ecosistema Koneque
+### 🔐 Web3 Integration
+- **Reown (WalletConnect)**: Decentralized wallet connections
+- **Base Sepolia**: Ethereum-compatible test network
+- **Smart Contracts**: Complete integration with Koneque ecosystem
 
-### 🏪 Funcionalidades del Marketplace
-- **Listado de Productos**: Crear y gestionar productos con metadatos IPFS
-- **Compra Segura**: Sistema de escrow para transacciones seguras
-- **Estados de Transacción**: Seguimiento completo del flujo de compra
-- **Sistema de Referidos**: Códigos de referido con recompensas
+### 🏪 Marketplace Functionalities
+- **Product Listing**: Create and manage products with IPFS metadata
+- **Secure Purchase**: Escrow system for secure transactions
+- **Transaction States**: Complete tracking of purchase flow
+- **Referral System**: Referral codes with rewards
 
-### 📱 Funcionalidades de la App
-- **Gestión de Estado**: Provider pattern para manejo de estado
-- **Interfaz Intuitiva**: UI/UX optimizada para dispositivos móviles
-- **Carga de Imágenes**: Integración con Pinata para almacenamiento IPFS
-- **Notificaciones**: Feedback en tiempo real de transacciones
+### 📱 App Functionalities
+- **State Management**: Provider pattern for state handling
+- **Intuitive Interface**: UI/UX optimized for mobile devices
+- **Image Upload**: Pinata integration for IPFS storage
+- **Notifications**: Real-time transaction feedback
 
-## 🛠️ Configuración del Proyecto
+## 🛠️ Project Setup
 
-### Prerrequisitos
+### Prerequisites
 - Flutter SDK (>=3.9.0)
 - Dart SDK
 - Android Studio / VS Code
-- Wallet compatible (MetaMask, Trust Wallet, etc.)
+- Compatible wallet (MetaMask, Trust Wallet, etc.)
 
-### Instalación
+### Installation
 
-1. **Clonar el repositorio**
+1. **Clone the repository**
 ```bash
 git clone <repository-url>
 cd koneque_flutter
 ```
 
-2. **Instalar dependencias**
+2. **Install dependencies**
 ```bash
 flutter pub get
 ```
 
-3. **Configurar Project ID de Reown**
+3. **Configure Reown Project ID**
 
-Obtén un Project ID gratuito en [dashboard.reown.com](https://dashboard.reown.com/):
+Get a free Project ID at [dashboard.reown.com](https://dashboard.reown.com/):
 
 ```bash
-# Ejecutar con Project ID
-flutter run --dart-define=PROJECT_ID=tu_project_id_aqui
+# Run with Project ID
+flutter run --dart-define=PROJECT_ID=your_project_id_here
 ```
 
-O configura en tu IDE:
-- **VS Code**: Agregar en `.vscode/launch.json`
+Or configure in your IDE:
+- **VS Code**: Add to `.vscode/launch.json`
 - **Android Studio**: Run Configuration → Additional args
 
-4. **Ejecutar la aplicación**
+4. **Run the application**
 ```bash
 flutter run
 ```
 
-## 🔧 Configuración de Contratos
+## 🔧 Contract Configuration
 
-### Direcciones en Base Sepolia
+### Base Sepolia Addresses
 
-La aplicación está preconfigurada con las siguientes direcciones de contratos:
+The application is preconfigured with the following contract addresses:
 
 ```dart
 // lib/models/contract_config.dart
@@ -73,134 +74,134 @@ static const Map<String, String> contractAddresses = {
   'NATIVE_TOKEN': '0x697943EF354BFc7c12169D5303cbbB23b133dc53',
   'REFERRAL_SYSTEM': '0x747EEC46f064763726603c9C5fC928f99926a209',
   'ESCROW': '0x8bbDDc3fcb74CdDB7050552b4DE01415C9966133',
-  // ... más contratos
+  // ... more contracts
 };
 ```
 
-### Configuración de Pinata IPFS
+### Pinata IPFS Configuration
 
-Los metadatos se almacenan en IPFS usando Pinata:
+Metadata is stored on IPFS using Pinata:
 
 ```dart
-// Configuración incluida en contract_config.dart
+// Configuration included in contract_config.dart
 static const Map<String, String> pinataConfig = {
   'API_KEY': '435b6bf038c1fc6dded9',
   'JWT': 'eyJhbGciOiJIUzI1NiIs...',
-  // Configuración completa incluida
+  // Complete configuration included
 };
 ```
 
-## 📱 Uso de la Aplicación
+## 📱 Application Usage
 
-### 1. Conexión de Wallet
+### 1. Wallet Connection
 
-1. **Abrir la aplicación**
-2. **Tocar "Conectar Wallet Web3"**
-3. **Seleccionar tu wallet preferida** (MetaMask, Trust Wallet, etc.)
-4. **Aprobar la conexión** en tu wallet
+1. **Open the application**
+2. **Tap "Connect Web3 Wallet"**
+3. **Select your preferred wallet** (MetaMask, Trust Wallet, etc.)
+4. **Approve the connection** in your wallet
 
-### 2. Explorar el Marketplace
+### 2. Explore the Marketplace
 
-- **Ver productos disponibles** en la lista principal
-- **Filtrar por categorías** y estados
-- **Ver detalles** tocando cualquier producto
+- **View available products** in the main list
+- **Filter by categories** and states
+- **View details** by tapping any product
 
-### 3. Comprar Productos
+### 3. Buy Products
 
-1. **Seleccionar un producto**
-2. **Tocar "Comprar"**
-3. **Confirmar la transacción** en tu wallet
-4. **Seguir el estado** en "Mis Transacciones"
+1. **Select a product**
+2. **Tap "Buy"**
+3. **Confirm the transaction** in your wallet
+4. **Track the status** in "My Transactions"
 
-### 4. Vender Productos
+### 4. Sell Products
 
-1. **Tocar el botón "+"** (FAB)
-2. **Llenar información del producto**
-3. **Subir imágenes** (se almacenan en IPFS)
-4. **Confirmar listado** en tu wallet
+1. **Tap the "+" button** (FAB)
+2. **Fill product information**
+3. **Upload images** (stored on IPFS)
+4. **Confirm listing** in your wallet
 
-### 5. Sistema de Referidos
+### 5. Referral System
 
-1. **Crear código de referido**: Botón "Crear Código Referido"
-2. **Compartir tu código** con amigos
-3. **Usar código de otro**: Botón "Usar Código"
-4. **Ganar recompensas** por referidos exitosos
+1. **Create referral code**: "Create Referral Code" button
+2. **Share your code** with friends
+3. **Use someone's code**: "Use Code" button
+4. **Earn rewards** for successful referrals
 
-## 🏗️ Arquitectura del Proyecto
+## 🏗️ Project Architecture
 
 ```
 lib/
-├── models/                 # Modelos de datos
-│   ├── contract_config.dart    # Configuración de contratos
-│   ├── product.dart           # Modelo de productos
-│   └── transaction.dart       # Modelo de transacciones
-├── services/              # Servicios y lógica de negocio
-│   ├── reown_service.dart     # Integración con Reown/WalletConnect
-│   ├── contract_service.dart  # Interacción con smart contracts
-│   ├── pinata_service.dart    # Almacenamiento IPFS
-│   └── koneque_provider.dart  # Gestión de estado global
-├── screens/               # Pantallas de la aplicación
-│   ├── login_screen.dart      # Pantalla de inicio/conexión
-│   └── marketplace_screen.dart # Pantalla principal del marketplace
-├── widgets/               # Componentes reutilizables
-├── theme/                 # Configuración de temas
-└── main.dart             # Punto de entrada de la aplicación
+├── models/                 # Data models
+│   ├── contract_config.dart    # Contract configuration
+│   ├── product.dart           # Product models
+│   └── transaction.dart       # Transaction models
+├── services/              # Services and business logic
+│   ├── reown_service.dart     # Reown/WalletConnect integration
+│   ├── contract_service.dart  # Smart contract interaction
+│   ├── pinata_service.dart    # IPFS storage
+│   └── koneque_provider.dart  # Global state management
+├── screens/               # Application screens
+│   ├── login_screen.dart      # Login/connection screen
+│   └── marketplace_screen.dart # Main marketplace screen
+├── widgets/               # Reusable components
+├── theme/                 # Theme configuration
+└── main.dart             # Application entry point
 ```
 
-## 🔗 Integración con Smart Contracts
+## 🔗 Smart Contract Integration
 
-### Funciones Principales Implementadas
+### Main Implemented Functions
 
 #### MarketplaceCore
-- `listItem()`: Listar nuevo producto
-- `buyItem()`: Comprar producto
-- `confirmDelivery()`: Confirmar entrega
-- `finalizeTransaction()`: Finalizar transacción
-- `getActiveProducts()`: Obtener productos activos
+- `listItem()`: List new product
+- `buyItem()`: Buy product
+- `confirmDelivery()`: Confirm delivery
+- `finalizeTransaction()`: Finalize transaction
+- `getActiveProducts()`: Get active products
 
 #### ReferralSystem
-- `createReferralCode()`: Crear código de referido
-- `registerReferralWithCode()`: Registrar con código
-- `isReferralCodeValid()`: Validar código
+- `createReferralCode()`: Create referral code
+- `registerReferralWithCode()`: Register with code
+- `isReferralCodeValid()`: Validate code
 
 #### NativeToken (KNQ)
-- `balanceOf()`: Consultar balance
-- `transfer()`: Transferir tokens
+- `balanceOf()`: Check balance
+- `transfer()`: Transfer tokens
 
-### Estados de Transacciones
+### Transaction States
 
 ```dart
 enum TransactionStatus {
-  paymentCompleted(0),    // Pago completado
-  productDelivered(1),    // Producto entregado
-  finalized(2),          // Finalizado
-  inDispute(3),          // En disputa
-  refunded(4),           // Reembolsado
+  paymentCompleted(0),    // Payment completed
+  productDelivered(1),    // Product delivered
+  finalized(2),          // Finalized
+  inDispute(3),          // In dispute
+  refunded(4),           // Refunded
 }
 ```
 
-## 🧪 Testing y Desarrollo
+## 🧪 Testing and Development
 
-### Red de Pruebas
-- **Red**: Base Sepolia (Chain ID: 84532)
+### Test Network
+- **Network**: Base Sepolia (Chain ID: 84532)
 - **RPC**: https://sepolia.base.org
 - **Explorer**: https://sepolia.basescan.org
 - **Faucet**: [Base Sepolia Faucet](https://portal.cdp.coinbase.com/products/faucet)
 
-### Obtener Tokens de Prueba
-1. **ETH para gas**: Usar el faucet de Base Sepolia
-2. **Tokens KNQ**: Interactuar con el contrato NativeToken
+### Get Test Tokens
+1. **ETH for gas**: Use Base Sepolia faucet
+2. **KNQ tokens**: Interact with NativeToken contract
 
-### Debug y Logs
+### Debug and Logs
 ```bash
-# Ejecutar con logs detallados
+# Run with detailed logs
 flutter run --verbose
 
-# Logs específicos de Web3
+# Web3-specific logs
 flutter logs | grep -E "(Web3|Contract|Reown)"
 ```
 
-## 🚀 Despliegue
+## 🚀 Deployment
 
 ### Android
 ```bash
@@ -213,47 +214,49 @@ flutter build appbundle --release
 
 ### iOS
 ```bash
-# Build para iOS
+# Build for iOS
 flutter build ios --release
 ```
 
-## 📚 Recursos Adicionales
+## 📚 Additional Resources
 
-### Documentación
-- [Documentación de Contratos](../koneque-contracts/README.md)
-- [Guía de Smart Accounts](../koneque-contracts/SMART_ACCOUNT_GUIDE.md)
-- [Integración Frontend](../koneque-contracts/FRONTEND_INTEGRATION_GUIDE.md)
+### Documentation
+- [Contract Documentation](../koneque-contracts/README.md)
+- [Smart Account Guide](../koneque-contracts/SMART_ACCOUNT_GUIDE.md)
+- [Frontend Integration](../koneque-contracts/FRONTEND_INTEGRATION_GUIDE.md)
 
-### Enlaces Útiles
+### Useful Links
 - [Reown Documentation](https://docs.reown.com/appkit/flutter/)
 - [Base Network](https://base.org/)
 - [Pinata IPFS](https://pinata.cloud/)
 - [Flutter Web3](https://pub.dev/packages/web3dart)
 
-## 🤝 Contribución
+## 🤝 Contributing
 
-1. Fork el proyecto
-2. Crear rama de feature (`git checkout -b feature/nueva-funcionalidad`)
-3. Commit cambios (`git commit -m 'Agregar nueva funcionalidad'`)
-4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
-5. Abrir Pull Request
+1. Fork the project
+2. Create feature branch (`git checkout -b feature/new-functionality`)
+3. Commit changes (`git commit -m 'Add new functionality'`)
+4. Push to branch (`git push origin feature/new-functionality`)
+5. Open Pull Request
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está bajo la licencia MIT - ver el archivo [LICENSE](LICENSE) para detalles.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🆘 Soporte
+## 🆘 Support
 
-Si tienes problemas:
+If you have issues:
 
-1. **Revisa los logs** de la aplicación
-2. **Verifica la conexión** a internet y wallet
-3. **Confirma que tengas ETH** para gas en Base Sepolia
-4. **Consulta la documentación** de contratos
-5. **Abre un issue** en el repositorio
+1. **Check application logs**
+2. **Verify internet connection** and wallet
+3. **Confirm you have ETH** for gas on Base Sepolia
+4. **Consult contract documentation**
+5. **Open an issue** in the repository
 
 ---
 
-**Estado del Proyecto**: ✅ Funcional con todas las características implementadas
-**Última Actualización**: 31 de agosto de 2025
-**Versión**: 1.0.0
+**Project Status**: ✅ Functional with all features implemented
+**Last Update**: August 31, 2025
+**Version**: 1.0.0
+
+````
