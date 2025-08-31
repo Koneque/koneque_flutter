@@ -6,6 +6,8 @@ import 'chat_inbox_screen.dart';
 import 'addProductScreen.dart'; // <- nueva pantalla
 import 'vendedor_page.dart';
 import '/theme/colors.dart'; // <- Importa tu paleta de colores
+import 'miscompras.dart';
+import 'disputa_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -89,8 +91,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               leading: const Icon(Icons.shopping_cart),
               title: const Text("Mis Compras"),
-              onTap: () => Navigator.pop(context),
+              onTap: () {
+                Navigator.pop(context); // cierra el Drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => MisComprasScreen()),
+                );
+              },
             ),
+
             ListTile(
               leading: const Icon(Icons.add),
               title: const Text("Agregar Producto"),
@@ -115,8 +124,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text("Configuración"),
-              onTap: () => Navigator.pop(context),
+              title: const Text("revisiones"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => DisputaPage()),
+                );
+              },
             ),
           ],
         ),
